@@ -4,29 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import photos from "../data/photos";
 
 export default function PhotoPrintStore() {
   const [cart, setCart] = useState([]);
-  const photos = [
-    {
-      id: 1,
-      title: "Sunset Over Mountains",
-      price: 49.99,
-      src: "/photos/Bird.jpg",
-    },
-    {
-      id: 2,
-      title: "City Lights at Night",
-      price: 59.99,
-      src: "/photos/Beach.jpg",
-    },
-    {
-      id: 3,
-      title: "Ocean Wave Crash",
-      price: 39.99,
-      src: "/photos/TwoBirds.jpg",
-    },
-  ];
+  
 
   const addToCart = (photo) => {
     setCart((prevCart) => [...prevCart, photo]);
