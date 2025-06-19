@@ -8,7 +8,8 @@ import photos from "../data/photos";
 
 export default function PhotoPrintStore() {
   const [cart, setCart] = useState([]);
-  
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+
 
   const addToCart = (photo) => {
     setCart((prevCart) => [...prevCart, photo]);
@@ -33,22 +34,37 @@ export default function PhotoPrintStore() {
           </Card>
         ))}
       </div>
-
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-4">Cart</h2>
-        {cart.length === 0 ? (
-          <p>Your cart is empty.</p>
-        ) : (
-          <ul className="space-y-2">
-            {cart.map((item, index) => (
-              <li key={index} className="flex justify-between border-b py-2">
-                <span>{item.title}</span>
-                <span>${item.price.toFixed(2)}</span>
-              </li>
-            ))}
-          </ul>
-        )}
+<div className="mt-12">
+  <h2 className="text-2xl font-bold mb-4">Cart</h2>
+  {cart.length === 0 ? (
+    <p>Your cart is empty.</p>
+  ) : (
+    <>
+      <ul className="space-y-2">
+        {cart.map((item, index) => (
+          <li key={index} className="flex justify-between items-center border-b py-2">
+            <div>
+              <p>{item.title}</p>
+              <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+            </div>
+            <Button
+              variant="ghost"
+              className="text-red-500"
+              onClick={() =>
+                setCart((prevCart) => prevCart.filter((_, i) => i !== index))
+              }
+            >
+              Remove
+            </Button>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 text-right font-semibold text-lg">
+        Total: ${total.toFixed(2)}
       </div>
-    </div>
+    </>
+  )}
+</div>
+</div>
   );
 }
